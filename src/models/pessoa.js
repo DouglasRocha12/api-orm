@@ -4,13 +4,14 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Pessoa extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+
+      Pessoa.hasMany(models.Matricula, {
+        foreignKey: 'estudante_id',
+      });
+      Pessoa.hasMany(models.Cursos, {
+        foreignKey: 'docente_id',
+      });
     }
   }
   Pessoa.init({
@@ -23,20 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Pessoa',
     tableName: 'pessoas',
-    // underscored: true,
-    // timestamps: true,
-    // createdAt: 'created_at',
-    // updatedAt: 'updated_at',
-    // deletedAt: 'deleted_at',
-    // paranoid: true,
-    // defaultScope: {
-    //   attributes: { exclude: ['deleted_at'] }
-    // },
-    // scopes: {
-    //   withDeleted: {
-    //     attributes: { include: ['deleted_at'] }
-    //   }
-    // }
+
   });
   return Pessoa;
 };
